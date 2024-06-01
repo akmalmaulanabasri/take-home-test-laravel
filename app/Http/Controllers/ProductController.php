@@ -55,6 +55,7 @@ class ProductController extends Controller
 
         $fotoBarang = $request->file('FotoBarang');
         $fotoBarang->storeAs('public/products', $fotoBarang->hashName());
+        $request->file('FotoBarang')->store('products');
 
         Product::create([
             'NamaBarang' => $request->NamaBarang,
@@ -111,6 +112,7 @@ class ProductController extends Controller
         if ($request->hasFile('FotoBarang')) {
             $fotoBarang = $request->file('FotoBarang');
             $fotoBarang->storeAs('public/products', $fotoBarang->hashName());
+            $request->file('FotoBarang')->store('products');
             $product->update([
                 'NamaBarang' => $request->NamaBarang,
                 'HargaBeli' => $request->HargaBeli,
