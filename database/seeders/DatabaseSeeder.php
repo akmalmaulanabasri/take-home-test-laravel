@@ -19,14 +19,5 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin123'),
         ]);
-
-        for ($i = 1; $i <= 100; $i++) {
-            Product::create([
-                'NamaBarang' => 'Laptop ' . $i,
-                'HargaBeli' => 10000000,
-                'HargaJual' => 13000000,
-                'Stok' => 5,
-            ]);
-        }
     }
 }
