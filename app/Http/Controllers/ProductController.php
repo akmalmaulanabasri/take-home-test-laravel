@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -55,14 +56,14 @@ class ProductController extends Controller
 
         $fotoBarang = $request->file('FotoBarang');
         $fotoBarang->storeAs('public/products', $fotoBarang->hashName());
-        $request->file('FotoBarang')->store('products');
+        $pathToFile = Storage::disk('public')->put('uploads/', $fotoBarang);
 
         Product::create([
             'NamaBarang' => $request->NamaBarang,
             'HargaBeli' => $request->HargaBeli,
             'HargaJual' => $request->HargaJual,
             'Stok' => $request->Stok,
-            'FotoBarang' => $fotoBarang->hashName(),
+            'FotoBarang' => $pathToFile,
         ]);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan');
@@ -111,14 +112,13 @@ class ProductController extends Controller
 
         if ($request->hasFile('FotoBarang')) {
             $fotoBarang = $request->file('FotoBarang');
-            $fotoBarang->storeAs('public/products', $fotoBarang->hashName());
-            $request->file('FotoBarang')->store('products');
+            $pathToFile = Storage::disk('public')->put('uploads/', $fotoBarang);
             $product->update([
                 'NamaBarang' => $request->NamaBarang,
                 'HargaBeli' => $request->HargaBeli,
                 'HargaJual' => $request->HargaJual,
                 'Stok' => $request->Stok,
-                'FotoBarang' => $fotoBarang->hashName(),
+                'FotoBarang' => $pathToFile,
             ]);
         } else {
             $fotoBarang = $product->FotoBarang;
