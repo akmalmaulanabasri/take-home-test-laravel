@@ -97,7 +97,7 @@ export default function Products({ auth, products }) {
                                         <Table.Cell>
                                             {product.FotoBarang !== null ? (
                                                 <img
-                                                    src={`storage/products/${product.FotoBarang}`}
+                                                    src={`${product.FotoBarang}`}
                                                     className="w-20 h-20 object-cover"
                                                     alt=""
                                                 />
